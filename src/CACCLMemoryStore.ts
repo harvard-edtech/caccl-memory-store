@@ -65,12 +65,19 @@ class CACCLMemoryStore implements CACCLStore {
    * @author Gabe Abrams
    * @param key the key to use for lookups
    * @param value JSON value object
+   * @returns previously stored value if there was one
    */
-  public async set(key: string, value: object) {
-    // Set in primary store
-    this.mutex.lock(() => {
-      this.primaryStore.set(key, value);
-      this.mutex.unlock();
+  public async set(key: string, value: object): Promise<object | undefined> {
+    return new Promise((resolve) => {
+      // Set in primary store
+      this.mutex.lock(() => {
+        const prevValue = this.get(key);
+        this.primaryStore.set(key, value);
+        this.mutex.unlock();
+
+        // Finish
+        resolve(prevValue ?? undefined);
+      });
     });
   }
 }

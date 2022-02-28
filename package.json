@@ -1,6 +1,6 @@
 {
   "name": "caccl-memory-store",
-  "version": "2.0.0-beta.0",
+  "version": "2.0.0-beta.1",
   "description": "CACCL's memory store for credential storage and caching",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

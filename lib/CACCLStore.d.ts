@@ -9,7 +9,8 @@ interface CACCLStore {
      * Store
      * @param key
      * @param value
+     * @returns previously stored value if there was one
      */
-    set(key: string, value: object): Promise<void>;
+    set(key: string, value: object): Promise<object | undefined>;
 }
 export default CACCLStore;

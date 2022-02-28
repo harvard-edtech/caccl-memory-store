@@ -27,7 +27,8 @@ declare class CACCLMemoryStore implements CACCLStore {
      * @author Gabe Abrams
      * @param key the key to use for lookups
      * @param value JSON value object
+     * @returns previously stored value if there was one
      */
-    set(key: string, value: object): Promise<void>;
+    set(key: string, value: object): Promise<object | undefined>;
 }
 export default CACCLMemoryStore;
