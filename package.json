@@ -1,0 +1,33 @@
+{
+  "name": "caccl-memory-store",
+  "version": "2.0.0-beta.0",
+  "description": "CACCL's memory store for credential storage and caching",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "tsc --project ./tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harvard-edtech/caccl-memory-store.git"
+  },
+  "keywords": [
+    "CACCL",
+    "store",
+    "memory",
+    "map"
+  ],
+  "author": "Gabe Abrams <gabeabrams@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/harvard-edtech/caccl-memory-store/issues"
+  },
+  "homepage": "https://github.com/harvard-edtech/caccl-memory-store#readme",
+  "devDependencies": {
+    "@types/locks": "^0.2.1",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "locks": "^0.2.2"
+  }
+}
