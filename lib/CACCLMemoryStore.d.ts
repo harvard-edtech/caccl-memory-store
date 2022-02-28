@@ -1,4 +1,5 @@
 import CACCLStore from './CACCLStore';
+import CACCLStoreValue from './CACCLStoreValue';
 declare class CACCLMemoryStore implements CACCLStore {
     private primaryStore;
     private secondaryStore;
@@ -21,7 +22,7 @@ declare class CACCLMemoryStore implements CACCLStore {
      * @param key the key to use in the lookup
      * @returns JSON value object
      */
-    get(key: string): Promise<object | undefined>;
+    get(key: string): Promise<CACCLStoreValue | undefined>;
     /**
      * Add/overwrite an entry in the store
      * @author Gabe Abrams
@@ -29,6 +30,6 @@ declare class CACCLMemoryStore implements CACCLStore {
      * @param value JSON value object
      * @returns previously stored value if there was one
      */
-    set(key: string, value: object): Promise<object | undefined>;
+    set(key: string, value: CACCLStoreValue): Promise<CACCLStoreValue | undefined>;
 }
 export default CACCLMemoryStore;

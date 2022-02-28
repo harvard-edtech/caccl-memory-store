@@ -3,10 +3,11 @@ import locks from 'locks';
 
 // Import shared types
 import CACCLStore from './CACCLStore';
+import CACCLStoreValue from './CACCLStoreValue';
 
 class CACCLMemoryStore implements CACCLStore {
-  private primaryStore: Map<string, object>;
-  private secondaryStore: Map<string, object>;
+  private primaryStore: Map<string, CACCLStoreValue>;
+  private secondaryStore: Map<string, CACCLStoreValue>;
   private mutex: locks.Mutex;
 
   /**
@@ -17,8 +18,8 @@ class CACCLMemoryStore implements CACCLStore {
    */
   constructor(minLifespanSec: number) {
     // Initialize state
-    this.primaryStore = new Map<string, object>();
-    this.secondaryStore = new Map<string, object>();
+    this.primaryStore = new Map<string, CACCLStoreValue>();
+    this.secondaryStore = new Map<string, CACCLStoreValue>();
     this.mutex = locks.createMutex();
 
     // Calculate a swap interval
@@ -39,8 +40,8 @@ class CACCLMemoryStore implements CACCLStore {
    */
   private async rotate() {
     this.mutex.lock(() => {
-      this.secondaryStore = new Map<string, object>(this.primaryStore);
-      this.primaryStore = new Map<string, object>();
+      this.secondaryStore = new Map<string, CACCLStoreValue>(this.primaryStore);
+      this.primaryStore = new Map<string, CACCLStoreValue>();
       this.mutex.unlock();
     });
   }
@@ -51,7 +52,7 @@ class CACCLMemoryStore implements CACCLStore {
    * @param key the key to use in the lookup
    * @returns JSON value object
    */
-  public async get(key: string): Promise<object | undefined> {
+  public async get(key: string): Promise<CACCLStoreValue | undefined> {
     // Look up in either store
     return (
       this.primaryStore.get(key)
@@ -67,7 +68,7 @@ class CACCLMemoryStore implements CACCLStore {
    * @param value JSON value object
    * @returns previously stored value if there was one
    */
-  public async set(key: string, value: object): Promise<object | undefined> {
+  public async set(key: string, value: CACCLStoreValue): Promise<CACCLStoreValue | undefined> {
     return new Promise((resolve) => {
       // Set in primary store
       this.mutex.lock(() => {
