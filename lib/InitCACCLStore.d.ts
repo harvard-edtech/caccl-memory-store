@@ -4,5 +4,5 @@ import CACCLStore from './CACCLStore';
  * @param minLifespanSec the minimum number of seconds that the store will
  *   keep entries
  */
-declare type InitCACCLStore = (minLifespanSec: number) => Promise<CACCLStore>;
+type InitCACCLStore = (minLifespanSec: number) => Promise<CACCLStore>;
 export default InitCACCLStore;
